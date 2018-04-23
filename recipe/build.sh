@@ -15,6 +15,13 @@ if [[ ${HOST} =~ .*darwin.* ]]; then
 else
     export BAZEL_BUILD_OPTS="--linkopt=-static-libgcc"
 fi
+
+if [[ $(uname) == MINGW* ]]; then
+  PREFIX="${PREFIX}"/Library/mingw-w64
+  export BAZEL_SH="${PREFIX}"/usr/bin/bash.exe
+  #cp $RECIPE_DIR/BUILD ${SRC_DIR}/src/BUILD
+fi
+
 sh compile.sh
 mv output/bazel $PREFIX/bin
 

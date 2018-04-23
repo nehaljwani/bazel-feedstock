@@ -1,4 +1,4 @@
-{% set version = "0.11.1" %}
+{% set version = "0.12.0" %}
 
 package:
   name: bazel
@@ -6,7 +6,7 @@ package:
 
 source:
   url: https://github.com/bazelbuild/bazel/releases/download/{{ version }}/bazel-{{ version }}-dist.zip
-  sha256: e8d762bcc01566fa50952c8028e95cfbe7545a39b8ceb3a0d0d6df33b25b333f
+  sha256: '3b3e7dc76d145046fdc78db7cac9a82bc8939d3b291e53a7ce85315feb827754'
   patches:
     - 0001-do-not-include-B-usr-bin.patch  # [linux]
     - 0002-allow-args-to-be-passed-to-bazel_build.patch
@@ -19,7 +19,7 @@ build:
   number: 0
   ignore_prefix_files: True
   binary_relocation: False  # [osx]
-  skip: True  # [win]
+  #skip: True  # [win]
   skip: True  # [linux32]
 
 requirements:
@@ -27,10 +27,11 @@ requirements:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
     - patch
-  host:
     - openjdk >=8
+  host:
     - unzip  # [linux]
     - zip    # [linux]
+    - posix  # [win]
   run:
     - openjdk >=8
 
